@@ -49,9 +49,13 @@ COPY --from=stage-1 /opt/fish-speech/checkpoints /opt/fish-speech/checkpoints
 
 ENV GRADIO_SERVER_NAME="0.0.0.0"
 
-WORKDIR  references/test
-COPY sample.wav references/test
-COPY sample.lab references/test
+# Create the references/test directory and copy sample files there.
+RUN mkdir -p references/test
+COPY sample.wav references/test/
+COPY sample.lab references/test/
+
+# Reset working directory back to /opt/fish-speech so that entrypoint.sh is found.
+WORKDIR /opt/fish-speech
 
 EXPOSE 7860
 EXPOSE 8080

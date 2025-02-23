@@ -93,6 +93,8 @@ We do not hold any responsibility for any illegal usage of the codebase. Please 
 - [日本語](https://speech.fish.audio/ja/)
 - [Portuguese (Brazil)](https://speech.fish.audio/pt/)
 
+## Docker
+Docker execution -> docker run --gpus all -e CUDA_ENABLED=true -p 8080:8080 fishspeech
 ## Samples (2024/10/02 V1.4)
 
 - [English](https://speech.fish.audio/samples/)
