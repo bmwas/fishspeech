@@ -37,6 +37,9 @@ WORKDIR /opt/fish-speech
 
 COPY . .
 
+# Create the .project-root indicator file and ensure the entrypoint is executable.
+RUN touch .project-root && chmod +x entrypoint.sh
+
 RUN --mount=type=cache,target=/root/.cache,sharing=locked \
     set -ex \
     && pip install -e .[stable] \
