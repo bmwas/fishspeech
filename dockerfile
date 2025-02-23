@@ -1,4 +1,4 @@
-FROM python:3.12-slim-bookworm AS stage-1
+FROM python:3.10-slim-bookworm AS stage-1
 ARG TARGETARCH
 
 ARG HUGGINGFACE_MODEL=fish-speech-1.5
@@ -10,7 +10,7 @@ RUN set -ex \
     && pip install huggingface_hub \
     && HF_ENDPOINT=${HF_ENDPOINT} huggingface-cli download --resume-download fishaudio/${HUGGINGFACE_MODEL} --local-dir checkpoints/${HUGGINGFACE_MODEL}
 
-FROM python:3.12-slim-bookworm
+FROM python:3.10-slim-bookworm
 ARG TARGETARCH
 
 ARG DEPENDENCIES="  \
@@ -39,7 +39,8 @@ COPY . .
 
 RUN --mount=type=cache,target=/root/.cache,sharing=locked \
     set -ex \
-    && pip install -e .[stable]
+    && pip install -e .[stable] \
+    && pip install torch==2.4.1 torchvision==0.19.1 torchaudio==2.4.1
 
 COPY --from=stage-1 /opt/fish-speech/checkpoints /opt/fish-speech/checkpoints
 
@@ -49,3 +50,4 @@ EXPOSE 7860
 EXPOSE 8080
 
 CMD ["./entrypoint.sh"]
+
