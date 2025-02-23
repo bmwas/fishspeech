@@ -49,6 +49,10 @@ COPY --from=stage-1 /opt/fish-speech/checkpoints /opt/fish-speech/checkpoints
 
 ENV GRADIO_SERVER_NAME="0.0.0.0"
 
+WORKDIR  references/test
+COPY sample.wav references/test
+COPY sample.lab references/test
+
 EXPOSE 7860
 EXPOSE 8080
 
