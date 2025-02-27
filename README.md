@@ -102,6 +102,54 @@ Docker execution -> docker run --gpus all -e CUDA_ENABLED=true -p 8080:8080 fish
 - [日本語](https://speech.fish.audio/ja/samples/)
 - [Portuguese (Brazil)](https://speech.fish.audio/pt/samples/)
 
+## Gentle introduction to API paramters (From a large language model and with minimal edits)
+
+Here's a gentle explanation of how each parameter affects Fish Audio TTS predictions:
+
+**Chunk Length (200)**: Controls how much text is processed at once. Lower values (100-150) create more natural pauses but might slightly slow processing. Higher values (300+) make synthesis faster but may produce robotic-sounding continuous speech.
+
+**Format (wav)**: Determines output quality vs file size:
+- WAV: Studio-quality audio (larger files)
+- MP3/OGG: Compressed formats (smaller files, slight quality loss)
+
+**References**: Lets you clone voices/styles from sample audio (requires matching speaker characteristics). Higher similarity requires clearer reference recordings.
+
+**Seed**: Creates consistent vocal fingerprints. Identical seeds produce identical voice outputs, while random seeds add natural vocal variations.
+
+**Memory Cache (off)**: When enabled, stores frequent requests:
+- ✅ Faster response for repeated phrases
+- ❌ Uses more RAM (5-10MB per cached voice)
+
+**Normalize (true)**: Automatically balances volume levels:
+- Prevents ear-piercing loud sections
+- Maintains consistent volume across devices
+
+**Streaming (false)**: When enabled:
+- Sends audio in real-time chunks
+- Adds 100-300ms latency but enables live feedback
+
+**Max New Tokens (1024)**: Controls sentence complexity:
+- Lower values (512): Simple phrases, faster processing
+- Higher values (2048): Complex sentences, slower synthesis
+
+**Top-P (0.7)**: Affects vocal creativity:
+- Lower (0.3-0.5): Predictable, news-anchor style
+- Higher (0.8-1.0): Expressive, storyteller voice
+
+**Repetition Penalty (1.2)**: Manages speech patterns:
+- 1.0-1.3: Natural emphasis
+- >1.5: Avoids stutters in complex texts
+
+**Temperature (0.7)**: Adjusts emotional range:
+- 0.3-0.5: Calm/nasal delivery
+- 0.8-1.0: Dynamic/breathy voice
+
+For natural sounding speech, start with defaults then adjust:
+- Lower temperature + medium top-p (0.5-0.7) for audiobooks
+- Higher temp (0.8) + low repetition penalty (1.1) for emotional dialogues
+
+---
+
 ## Credits
 
 - [VITS2 (daniilrobnikov)](https://github.com/daniilrobnikov/vits2)
